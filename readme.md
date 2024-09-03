@@ -37,6 +37,17 @@ npm i -D @telegram-apps/mate
 yarn add -D @telegram-apps/mate
 ```
 
+Alternatively, you can install it globally:
+
+```bash
+# Using pnpm
+pnpm i -g @telegram-apps/mate
+# or npm
+npm i -g @telegram-apps/mate
+# or yarn
+yarn global add @telegram-apps/mate
+```
+
 Once installed, the package will be accessible via the `mate` CLI tool:
 
 ```bash
@@ -84,7 +95,7 @@ mate deploy upload --dir dist --token {SPECIFY TOKEN HERE} --project paper-plane
 As a result, you will see a message like this in your console:
 
 ```
-i Uploading directory: D:\users\qbnk\paper-planes\dist (2 files)
+i Uploading directory: D:\users\developer\paper-planes\dist (2 files)
 i Project: paper-planes
 i Tag: latest
 📁 dist
@@ -106,14 +117,16 @@ By default, Mate uses the `latest` tag. To override this, use the `--tag` option
 mate deploy upload --dir dist --token {SPECIFY TOKEN HERE} --project paper-planes --tag test
 ```
 
-Here is the output:
+Here is the example of the output:
 
 ```
-✔ Fetched deploy information for paper-planes
-Base Path (using tag "test"): https://cdn.webappsbot.com/tma-assets/1da9a53596/test
-This path will be used as a base path for the uploaded assets associated with this project.
-Consider using this value as a base path in your bundler.
-You can also use different tags using the --tag option.
+i Uploading directory: D:\users\developer\paper-planes\dist (2 files)
+i Project: paper-planes
+i Tag: test
+📁 dist
+├ 📄 index.html (https://cdn.webappsbot.com/tma-assets/1da9a53596/test/index.html)
+├ 📄 create.png (https://cdn.webappsbot.com/tma-assets/1da9a53596/test/create.png)
+╰ 📄 start.png (https://cdn.webappsbot.com/tma-assets/1da9a53596/test/start.png)
 ```
 
 ## Using Config
