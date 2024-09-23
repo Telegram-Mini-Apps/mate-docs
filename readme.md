@@ -54,29 +54,43 @@ Once installed, the package will be accessible via the `mate` CLI tool:
 mate --help
 ```
 
-## Getting Project Info
+## Getting Project Deployment Info
 
 Before deploying the project, you might want to know the base URL. The base URL is the absolute URL
 that the project bundler will use to create links to all project assets.
 
-To retrieve the project base URL, use the following command:
+To retrieve the project deployment information, including the base URL, use the following command:
 
 ```bash
 # TOKEN refers to the deploy token received from the bot.
-mate deploy info --token {SPECIFY TOKEN HERE} --project 191
+# PROJECT is a project identifier. Example: 48
+mate deploy info --token {TOKEN} --project {PROJECT}
 ```
 
 You will see an output similar to this:
 
 ```
-✔ Fetched deploy information for 191
-Base Path (using tag "latest"): https://1da9a53596.tapps.global//latest
-This path will be used as a base path for the uploaded assets associated with this project.
-Consider using this value as a base path in your bundler.
-You can also use different tags using the --tag option.
+✔ Fetched deploy information for paper-planes (id 48) project
+Project Title: paper-planes
+Short title of the project
+--------
+Base Path (using tag "test"): https://35f105bd6b.tapps.global/latest
+This path will be used as a base path for the uploaded assets associated with this project. 
+Consider using this value as a base path in your bundler. You can also use different tags using 
+the --tag option
+--------
+Allowed file extensions: html, css, js, cjs, mjs, png, jpg, jpeg, webp, ttf, woff, woff2, eot, 
+json, ico
+Files extensions which are allowed to be uploaded
+--------
+Maximum size: 10485760 bytes
+Maximum upload size
+--------
+Maximum files count: 100
+Maximum files count a single upload can contain
 ```
 
-The value `https://1da9a53596.tapps.global/latest` is the base URL that you should
+The value `https://35f105bd6b.tapps.global/latest` is the base URL that you should
 use in your bundler.
 
 ## Deploying
@@ -84,25 +98,34 @@ use in your bundler.
 Before deploying the project assets, ensure that you have built your project and are not deploying
 source files. You should only deploy files that can be successfully opened by the user's browser.
 
-Let’s assume you have a project with id `191`, and it contains a `dist` directory with all
+Let’s assume you have a project with id `48`. Also, you have a `dist` directory with all
 the built files. To deploy this directory to the CDN, use the following command:
 
 ```bash
 # TOKEN refers to the deploy token received from the bot.
-mate deploy upload --dir dist --token {SPECIFY TOKEN HERE} --project 191
+mate deploy upload --dir dist --token {SPECIFY TOKEN HERE} --project 48
 ```
 
 As a result, you will see a message like this in your console:
 
 ```
-i Uploading directory: D:\users\developer\paper-planes\dist (2 files)
-i Project: 191
-i Tag: latest
+✔ Fetched deploy information for paper-planes (id 48) project
+i Assets base path (using tag "latest"): https://35f105bd6b.tapps.global/latest
+i Allowed file extensions: html, css, js, cjs, mjs, png, jpg, jpeg, webp, ttf, woff, woff2, eot, 
+json, ico
+i Maximum upload size: 10485760 bytes
+i Maximum files count: 100
+✔ Directory compressed successfully from 24185 to 7168 bytes
+✔ Archive uploaded successfully
 📁 dist
-├ 📄 index.html (https://1da9a53596.tapps.global/index.html)
-├ 📄 create.png (https://1da9a53596.tapps.global/create.png)
-╰ 📄 start.png (https://1da9a53596.tapps.global/start.png)
+╰ 📄 index.js (https://35f105bd6b.tapps.global/latest/index.js)
 ```
+
+> **Important**
+>
+> Note that your directory must include only usual files and directories.
+> All other types of files (symlinks, for example) are forbidden, the CLI toll will let you know
+> about it.
 
 ## Tagging
 
@@ -114,19 +137,7 @@ Each tag corresponds to its own subdirectory, which is reflected in the final as
 By default, Mate uses the `latest` tag. To override this, use the `--tag` option:
 
 ```bash
-mate deploy upload --dir dist --token {SPECIFY TOKEN HERE} --project 191 --tag test
-```
-
-Here is the example of the output:
-
-```
-i Uploading directory: D:\users\developer\paper-planes\dist (2 files)
-i Project: 191
-i Tag: test
-📁 dist
-├ 📄 index.html (https://1da9a53596.tapps.global/test/index.html)
-├ 📄 create.png (https://1da9a53596.tapps.global/test/create.png)
-╰ 📄 start.png (https://1da9a53596.tapps.global/test/start.png)
+mate deploy upload --dir dist --token {TOKEN} --project {PROJECT} --tag test
 ```
 
 ## Using Config
@@ -136,9 +147,9 @@ include the following content:
 
 ```yml
 deploy:
-  project: 191
+  projectId: {PROJECT}
   directory: dist
-  token: { SPECIFY TOKEN HERE }
+  token: {TOKEN}
 ```
 
 Then, you can use the `mate` commands:
