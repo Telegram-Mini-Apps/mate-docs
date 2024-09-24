@@ -54,6 +54,16 @@ Once installed, the package will be accessible via the `mate` CLI tool:
 mate --help
 ```
 
+Not to install the package, you can also use the package using `pnpm` or `npx`:
+
+```bash
+# Using npx
+npx @telegram-apps/mate@latest --help
+
+# Using pnpm
+pnpm dlx @telegram-apps/mate@latest --help
+```
+
 ## Getting Project Deployment Info
 
 Before deploying the project, you might want to know the base URL. The base URL is the absolute URL
